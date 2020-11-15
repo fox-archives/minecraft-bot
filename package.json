@@ -1,0 +1,20 @@
+{
+	"name": "slack-minecraft-bot",
+	"type": "commonjs",
+	"version": "0.1.0",
+	"main": "src",
+	"author": "Edwin Kofler <24364012+eankeen@users.noreply.github.com> (https://edwinkofler.com/)",
+	"license": "MIT",
+	"scripts": {
+		"start": "node -r esm src"
+	},
+	"dependencies": {
+		"@grpc/grpc-js": "^1.2.0",
+		"@slack/bolt": "^2.4.1",
+		"dotenv": "^8.2.0",
+		"esm": "^3.2.25",
+		"form-data": "^3.0.0",
+		"google-protobuf": "^3.14.0",
+		"node-fetch": "^2.6.1"
+	}
+}
