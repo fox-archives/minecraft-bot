@@ -13,10 +13,12 @@ dotenv.config()
  * @param {string} text
  */
 function sendSlack(text) {
+	const minecraftBridgeChannel = 'C01DY8LPP5K'
+
 	let form = new FormData()
 	form.append('token', process.env.SLACK_BOT_TOKEN)
 	form.append('text', text)
-	form.append('channel', 'C0P5NE354')
+	form.append('channel', minecraftBridgeChannel)
 	form.append('as_user', 'true')
 
 	fetch('https://slack.com/api/chat.postMessage', {
@@ -51,18 +53,19 @@ async function boldInit() {
 	console.info('Bolt Started')
 }
 
-function sendMessage(call, callback) {
-	var reply = new messages.HelloReply()
-	const name = call.request.getName()
+function sendSlackMessage(call, callback) {
+	const player = call.request.getPlayer()
+	const text = call.request.getText()
 
-	sendSlack(name)
-	console.info(call.request.getName())
-	reply.setMessage('Hello ' + call.request.getName())
+	console.info('foo', player, text)
+
+	const reply = new messages.SlackMessageReply()
+	reply.setStatus(1) // success
 	callback(null, reply)
 }
 
 let server = new grpc.Server()
-server.addService(services.MessengerService, { sendMessage })
+server.addService(services.MessengerService, { sendSlackMessage })
 server.bindAsync(
 	'0.0.0.0:50051',
 	grpc.ServerCredentials.createInsecure(),
